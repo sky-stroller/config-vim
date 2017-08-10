@@ -28,7 +28,12 @@ set background=dark
 
 set scrolloff=3
 set backspace=indent,eol,start
-set lcs=tab:>-,space:.,trail:@,eol:$
+
+" Set visible chars in list mode
+set listchars=tab:>-,trail:@,eol:$
+if has("patch-7.4.710")
+    set listchars+=space:.  " 'space' item was added in patch 7.4.710
+endif
 
 set sessionoptions+=unix,slash
 
@@ -50,6 +55,7 @@ endif
 nmap <S-A-UP> :move .-2<Enter>| "move line up
 nmap <S-A-DOWN> :move .+1<Enter>| "move line down
 
+" Config solarized colorscheme
 if $TERM =~ '256'
     let g:solarized_termcolors=256
 endif

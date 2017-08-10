@@ -1,5 +1,27 @@
 set nocompatible
 
+" Configure Vundle
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin('~/.vim/bundle/vdownloads')
+
+"Plugin 'VundleVim/Vundle.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+if has('python') || has('python3')
+    Plugin 'Valloric/YouCompleteMe'
+endif
+Plugin 'majutsushi/tagbar'
+"Plugin 'itchyny/lightline.vim'
+
+call vundle#end()
+
+" To have Vim load indentation rules and plugins according to the detected filetype.
+if has("autocmd")
+  filetype plugin indent on
+endif
+
 set mouse=a
 
 set expandtab
@@ -21,7 +43,7 @@ set ruler
 set number
 "set relativenumber
 
-if $TERM =~ '256'
+if !has('gui_running') && $TERM =~ '256'
     set t_Co=256
 endif
 set background=dark
@@ -44,11 +66,6 @@ endif
 " To have Vim jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" To have Vim load indentation rules and plugins according to the detected filetype.
-if has("autocmd")
-  filetype plugin indent on
 endif
 
 " Maps for normal mode

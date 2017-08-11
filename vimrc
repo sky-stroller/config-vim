@@ -59,7 +59,7 @@ endif
 
 set sessionoptions+=unix,slash
 
-if &t_Co > 1
+if &t_Co > 1 || has('gui_running')
    syntax enable
 endif
 

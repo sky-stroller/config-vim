@@ -3,9 +3,9 @@ set nocompatible
 " Configure Vundle
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/.vim/bundle/vdownloads')
+call vundle#begin()
 
-"Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -68,6 +68,12 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+if has("autocmd")
+    au FileType * if &filetype =~ 'python' | setlocal textwidth=79 | endif
+endif
+
+set colorcolumn=+1  " set color for column after 'textwidth'
+
 " Maps for normal mode
 nmap <S-A-UP> :move .-2<Enter>| "move line up
 nmap <S-A-DOWN> :move .+1<Enter>| "move line down
@@ -87,4 +93,9 @@ if exists("&clipboard") && (&clipboard !~ "unnamed")
     else
         let &clipboard = "unnamed" . (empty(&clipboard) ? "" : ",") . &clipboard
     endif
+endif
+
+" Disable toolbar in gui mode
+if has('gui_running')
+    set guioptions-=T
 endif

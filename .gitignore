@@ -1,1 +1,2 @@
-/bundle/vdownloads/
+/bundle/*/
+!/bundle/Vundle.vim/

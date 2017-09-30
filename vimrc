@@ -13,6 +13,7 @@ if has('python') || has('python3')
     Plugin 'Valloric/YouCompleteMe'
 endif
 Plugin 'majutsushi/tagbar'
+Plugin 'altercation/vim-colors-solarized'
 "Plugin 'itchyny/lightline.vim'
 
 call vundle#end()
@@ -99,3 +100,5 @@ endif
 if has('gui_running')
     set guioptions-=T
 endif
+
+set cursorline " hightlight cursor line

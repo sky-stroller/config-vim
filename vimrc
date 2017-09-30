@@ -14,7 +14,7 @@ if has('python') || has('python3')
 endif
 Plugin 'majutsushi/tagbar'
 Plugin 'altercation/vim-colors-solarized'
-"Plugin 'itchyny/lightline.vim'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 call vundle#end()
 
@@ -102,3 +102,4 @@ if has('gui_running')
 endif
 
 set cursorline " hightlight cursor line
+let g:Powerline_colorscheme='solarized'

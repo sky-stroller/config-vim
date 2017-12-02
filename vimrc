@@ -43,6 +43,8 @@ set ignorecase
 set ruler
 set number
 "set relativenumber
+" vim 自身命令行模式智能补全
+set wildmenu
 
 if !has('gui_running') && $TERM =~ '256'
     set t_Co=256
@@ -75,6 +77,29 @@ endif
 
 set colorcolumn=+1  " set color for column after 'textwidth'
 
+" 定义快捷键前缀，即 <Leader>
+let mapleader="t"
+
+" 窗口跳转快捷键(小写）
+noremap twh <C-W>h
+noremap twj <C-W>j
+noremap twk  <C-W>k
+noremap twl <C-W>l
+ounmap twh
+ounmap twj
+ounmap twk
+ounmap twl
+
+" 窗口跳转快捷键(大写）
+noremap TWH <C-W>h
+noremap TWJ <C-W>j
+noremap TWK  <C-W>k
+noremap TWL <C-W>l
+ounmap TWH
+ounmap TWJ
+ounmap TWK
+ounmap TWL
+
 " Maps for normal mode
 nmap <S-A-UP> :move .-2<Enter>| "move line up
 nmap <S-A-DOWN> :move .+1<Enter>| "move line down
@@ -88,13 +113,21 @@ colorscheme solarized
 
 " Use clipboard register for all yank, delete change and put operations which
 " would normally go to the unnamed register.
-if exists("&clipboard") && (&clipboard !~ "unnamed")
-    if has('unnamedplus')
-        let &clipboard = "unnamedplus" . (empty(&clipboard) ? "" : ",") . &clipboard
-    else
-        let &clipboard = "unnamed" . (empty(&clipboard) ? "" : ",") . &clipboard
-    endif
-endif
+" if exists("&clipboard") && (&clipboard !~ "unnamed")
+"     if has('unnamedplus')
+"         let &clipboard = "unnamedplus" . (empty(&clipboard) ? "" : ",") . &clipboard
+"     else
+"         let &clipboard = "unnamed" . (empty(&clipboard) ? "" : ",") . &clipboard
+"     endif
+" endif
+
+" 将文本复制到系统剪切板
+vnoremap <Leader>y "+y
+nnoremap <Leader>y "+y
+
+" 将系统剪切板的内容粘贴至 vim
+vnoremap <Leader>p "+p
+nnoremap <Leader>p "+p
 
 " Disable toolbar in gui mode
 if has('gui_running')
@@ -102,4 +135,8 @@ if has('gui_running')
 endif
 
 set cursorline " hightlight cursor line
-let g:Powerline_colorscheme='solarized'
+
+"let g:Powerline_colorscheme='solarized'
+
+" 让配置变更立即生效
+autocmd BufWritePost $MYVIMRC source $MYVIMRC

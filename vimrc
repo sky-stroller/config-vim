@@ -21,6 +21,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
@@ -163,7 +164,15 @@ endif
 let g:solarized_termtrans=1
 colorscheme solarized
 
-let g:airline_powerline_fonts = 1
+if has('gui_running')
+    let &guifont = 'Anonymous Pro for Powerline'
+    let g:airline_powerline_fonts = 1
+endif
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#branch#enabled = 1
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1

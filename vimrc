@@ -1,6 +1,8 @@
 set nocompatible
 
+" ===========================================================================
 " Configure Vundle
+" ===========================================================================
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -21,6 +23,11 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 
 call vundle#end()
+
+
+" ===========================================================================
+" General setting
+" ===========================================================================
 
 " To have Vim load indentation rules and plugins according to the detected filetype.
 if has("autocmd")
@@ -47,6 +54,7 @@ set ignorecase
 set ruler
 set number
 "set relativenumber
+
 " vim 自身命令行模式智能补全
 set wildmenu
 " 总是显示状态栏
@@ -59,6 +67,12 @@ set background=dark
 
 set scrolloff=3
 set backspace=indent,eol,start
+" Disable toolbar in gui mode
+if has('gui_running')
+    set guioptions-=T
+endif
+
+set cursorline " hightlight cursor line
 
 " Set visible chars in list mode
 set listchars=tab:>-,trail:@,eol:$
@@ -67,10 +81,21 @@ if has("patch-7.4.710")
 endif
 
 set sessionoptions+=unix,slash
+set colorcolumn=+1  " set color for column after 'textwidth'
 
 if &t_Co > 1 || has('gui_running')
    syntax enable
 endif
+
+" Use clipboard register for all yank, delete change and put operations which
+" would normally go to the unnamed register.
+" if exists("&clipboard") && (&clipboard !~ "unnamed")
+"     if has('unnamedplus')
+"         let &clipboard = "unnamedplus" . (empty(&clipboard) ? "" : ",") . &clipboard
+"     else
+"         let &clipboard = "unnamed" . (empty(&clipboard) ? "" : ",") . &clipboard
+"     endif
+" endif
 
 " To have Vim jump to the last position when reopening a file
 if has("autocmd")
@@ -81,7 +106,13 @@ if has("autocmd")
     au FileType * if &filetype =~ 'python' | setlocal textwidth=79 | endif
 endif
 
-set colorcolumn=+1  " set color for column after 'textwidth'
+" 让配置变更立即生效
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+
+" ===========================================================================
+" 自定义快捷键
+" ===========================================================================
 
 " 定义快捷键前缀，即 <Leader>
 let mapleader="t"
@@ -110,23 +141,6 @@ ounmap TWL
 nmap <S-A-UP> :move .-2<Enter>| "move line up
 nmap <S-A-DOWN> :move .+1<Enter>| "move line down
 
-" Config solarized colorscheme
-if $TERM =~ '256'
-    let g:solarized_termcolors=256
-endif
-let g:solarized_termtrans=1
-colorscheme solarized
-
-" Use clipboard register for all yank, delete change and put operations which
-" would normally go to the unnamed register.
-" if exists("&clipboard") && (&clipboard !~ "unnamed")
-"     if has('unnamedplus')
-"         let &clipboard = "unnamedplus" . (empty(&clipboard) ? "" : ",") . &clipboard
-"     else
-"         let &clipboard = "unnamed" . (empty(&clipboard) ? "" : ",") . &clipboard
-"     endif
-" endif
-
 " 将文本复制到系统剪切板
 vnoremap <Leader>y "+y
 nnoremap <Leader>y "+y
@@ -135,18 +149,21 @@ nnoremap <Leader>y "+y
 vnoremap <Leader>p "+p
 nnoremap <Leader>p "+p
 
-" Disable toolbar in gui mode
-if has('gui_running')
-    set guioptions-=T
-endif
 
-set cursorline " hightlight cursor line
+" ===========================================================================
+" 插件配置
+" ===========================================================================
 
 "let g:Powerline_colorscheme='solarized'
-let g:airline_powerline_fonts = 1
 
-" 让配置变更立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+" Config solarized colorscheme
+if $TERM =~ '256'
+    let g:solarized_termcolors=256
+endif
+let g:solarized_termtrans=1
+colorscheme solarized
+
+let g:airline_powerline_fonts = 1
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1

@@ -14,7 +14,9 @@ if has('python') || has('python3')
 endif
 Plugin 'majutsushi/tagbar'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 call vundle#end()
 
@@ -45,6 +47,8 @@ set number
 "set relativenumber
 " vim 自身命令行模式智能补全
 set wildmenu
+" 总是显示状态栏
+set laststatus=2
 
 if !has('gui_running') && $TERM =~ '256'
     set t_Co=256
@@ -137,6 +141,7 @@ endif
 set cursorline " hightlight cursor line
 
 "let g:Powerline_colorscheme='solarized'
+let g:airline_powerline_fonts = 1
 
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC

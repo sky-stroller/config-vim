@@ -1,11 +1,16 @@
 set nocompatible
 
-" ===========================================================================
+" ============================================================================
 " Configure Vundle
-" ===========================================================================
+" ============================================================================
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if has('win32')
+    set runtimepath+=~/vimfiles/bundle/Vundle.vim
+    call vundle#begin('~/vimfiles/bundle')
+else
+    set  runtimepath+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+endif
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -26,14 +31,18 @@ Plugin 'tpope/vim-fugitive'
 call vundle#end()
 
 
-" ===========================================================================
+" ============================================================================
 " General setting
-" ===========================================================================
+" ============================================================================
 
 " To have Vim load indentation rules and plugins according to the detected filetype.
 if has("autocmd")
   filetype plugin indent on
 endif
+
+set encoding=utf-8
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 set mouse=a
 
@@ -68,9 +77,13 @@ set background=dark
 
 set scrolloff=3
 set backspace=indent,eol,start
-" Disable toolbar in gui mode
+" Disable toolbar and scrollbars in gui mode
 if has('gui_running')
     set guioptions-=T
+    set guioptions-=R
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions-=l
 endif
 
 set cursorline " hightlight cursor line
@@ -111,9 +124,9 @@ endif
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 
-" ===========================================================================
+" ============================================================================
 " 自定义快捷键
-" ===========================================================================
+" ============================================================================
 
 " 定义快捷键前缀，即 <Leader>
 let mapleader="t"
@@ -151,9 +164,9 @@ vnoremap <Leader>p "+p
 nnoremap <Leader>p "+p
 
 
-" ===========================================================================
+" ============================================================================
 " 插件配置
-" ===========================================================================
+" ============================================================================
 
 "let g:Powerline_colorscheme='solarized'
 
@@ -165,8 +178,12 @@ let g:solarized_termtrans=1
 colorscheme solarized
 
 if has('gui_running')
-    let &guifont = 'Anonymous Pro for Powerline'
     let g:airline_powerline_fonts = 1
+    if has('win32')
+        let &guifont='Anonymice_Powerline:h9:cANSI:qDRAFT'
+    else
+        let &guifont = 'Anonymous Pro for Powerline'
+    endif
 endif
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1

@@ -1,15 +1,15 @@
 set nocompatible
-
-" ============================================================================
-" Configure Vundle
-" ============================================================================
-filetype off
+setlocal foldmethod=marker
 
 if has('win32')
     let vimrc_home = $HOME . '/vimfiles'
 else
     let vimrc_home = $HOME . '/.vim'
 endif
+
+" Configure Vundle: make Vundle available {{{1
+" ============================================================================
+filetype off
 
 let s:vundle_path = vimrc_home . '/bundle/Vundle.vim'
 let &runtimepath = &runtimepath . ',' . s:vundle_path
@@ -34,8 +34,7 @@ Plugin 'rdnetto/YCM-Generator'
 call vundle#end()
 
 
-" ============================================================================
-" General setting
+" General Setting: {{{1
 " ============================================================================
 
 " To have Vim load indentation rules and plugins according to the detected filetype.
@@ -127,13 +126,13 @@ endif
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 
-" ============================================================================
-" 自定义快捷键
+" Configure: 全局快捷键: {{{1
 " ============================================================================
 
 " 定义快捷键前缀，即 <Leader>
 let mapleader="t"
 
+" Shorecuts: 窗口跳转 {{{2
 " 窗口跳转快捷键(小写）
 noremap twh <C-W>h
 noremap twj <C-W>j
@@ -154,6 +153,7 @@ ounmap TWJ
 ounmap TWK
 ounmap TWL
 
+" Shortcuts: 复制粘贴 {{{2
 " Maps for normal mode
 nmap <S-A-UP> :move .-2<Enter>| "move line up
 nmap <S-A-DOWN> :move .+1<Enter>| "move line down
@@ -167,14 +167,10 @@ vnoremap <Leader>p "+p
 nnoremap <Leader>p "+p
 
 
-" ============================================================================
-" 插件配置
+" Configure: 插件配置 {{{1
 " ============================================================================
 
-"let g:Powerline_colorscheme='solarized'
-
-"
-" Configure solarized colorscheme
+" Plugin: solarized colorscheme {{{2
 "
 if $TERM =~ '256'
     let g:solarized_termcolors=256
@@ -182,8 +178,7 @@ endif
 let g:solarized_termtrans=1
 colorscheme solarized
 
-"
-" Configure airline
+" Plugin: airline {{{2
 "
 if has('gui_running')
     let g:airline_powerline_fonts = 1
@@ -211,15 +206,13 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>bh <Plug>AirlineSelectPrevTab
 nmap <leader>bl <Plug>AirlineSelectNextTab
 
-"
-" Configure indent_guides
+" Plugin: indent_guides {{{2
 "
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 "let g:indent_guides_start_level = 2
 
-"
-" Configure YCM
+" Plugin: YCM {{{2
 "
 let g:ycm_always_populate_location_list = 1
 let g:ycm_global_ycm_extra_conf = vimrc_home . '/.ycm_extra_conf.py'

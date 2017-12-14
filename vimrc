@@ -4,14 +4,16 @@ set nocompatible
 " Configure Vundle
 " ============================================================================
 filetype off
+
 if has('win32')
-    set runtimepath+=~/vimfiles/bundle/Vundle.vim
-    call vundle#begin('~/vimfiles/bundle')
+    let vimrc_home = $HOME . '/vimfiles'
 else
-    set  runtimepath+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
+    let vimrc_home = $HOME . '/.vim'
 endif
 
+let s:vundle_path = vimrc_home . '/bundle/Vundle.vim'
+let &runtimepath = &runtimepath . ',' . s:vundle_path
+call vundle#begin(vimrc_home . '/bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
@@ -27,6 +29,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rdnetto/YCM-Generator'
 
 call vundle#end()
 
@@ -170,13 +173,18 @@ nnoremap <Leader>p "+p
 
 "let g:Powerline_colorscheme='solarized'
 
-" Config solarized colorscheme
+"
+" Configure solarized colorscheme
+"
 if $TERM =~ '256'
     let g:solarized_termcolors=256
 endif
 let g:solarized_termtrans=1
 colorscheme solarized
 
+"
+" Configure airline
+"
 if has('gui_running')
     let g:airline_powerline_fonts = 1
     if has('win32')
@@ -203,7 +211,24 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>bh <Plug>AirlineSelectPrevTab
 nmap <leader>bl <Plug>AirlineSelectNextTab
 
+"
+" Configure indent_guides
+"
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 "let g:indent_guides_start_level = 2
 
+"
+" Configure YCM
+"
+let g:ycm_always_populate_location_list = 1
+let g:ycm_global_ycm_extra_conf = vimrc_home . '/.ycm_extra_conf.py'
+nmap <leader>ji :YcmCompleter GoToInclude<CR>
+nmap <leader>jc :YcmCompleter GoToDeclaration<CR>
+nmap <leader>jd :YcmCompleter GoToDefinition<CR>
+" find all of the references within the project to the identifier under the
+" cursor for js, python and typescript.
+nmap <leader>jr :YcmCompleter GoToRefrences<CR>
+nmap <leader>st :YcmCompleter GetType<CR>| " show type
+nmap <leader>sd :YcmCompleter GetDoc<CR>| " show doc
+nmap <leader>fi :YcmCompleter FixIt<CR>| " fix it

@@ -113,6 +113,12 @@ endif
 "     endif
 " endif
 
+set splitbelow
+set splitright
+
+
+" Configure: Autocmd {{{1
+" ============================================================================
 " To have Vim jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -180,14 +186,14 @@ colorscheme solarized
 
 " Plugin: airline {{{2
 "
-if has('gui_running')
-    let g:airline_powerline_fonts = 1
-    if has('win32')
-        let &guifont='Anonymice_Powerline:h9:cANSI:qDRAFT'
-    else
-        let &guifont = 'Anonymous Pro for Powerline 11'
-    endif
-endif
+" if has('gui_running')
+"     let g:airline_powerline_fonts = 1
+"     if has('win32')
+"         let &guifont='Anonymice_Powerline:h9:cANSI:qDRAFT'
+"     else
+"         let &guifont = 'Anonymous Pro for Powerline 11'
+"     endif
+" endif
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
